@@ -149,6 +149,31 @@ public class TableroController implements Initializable {
             
     }
     
+    public boolean hayGanador(){
+        for(int i=0;i<Tablero.combinaciones.length;i++){
+            int[] combinacion =Tablero.combinaciones[i];
+            boolean banderaJugador=true;
+            boolean banderaMaquina=true;
+            for(int e=0;e<combinacion.length;e++){
+                int indice=combinacion[e];
+                if(Tablero.tablero[indice]!=Tablero.jugador){
+                    banderaJugador=false;
+                }
+                if(Tablero.tablero[indice]!=Tablero.maquina){
+                    banderaMaquina=false;
+                } 
+            }
+            if(banderaJugador){
+                return banderaJugador;
+            }
+            if(banderaMaquina){
+                return banderaMaquina;
+            }
+               
+        }
+        return false;
+    }
+    
     public void mov0(ActionEvent event){
         manejarTurno(0);
         
