@@ -174,6 +174,37 @@ public class TableroController implements Initializable {
         return false;
     }
     
+    public void empatarYTerminarPartida(){
+            String mensajeEmpate="Un empate! Click para reiniciar.";
+            Pane overlay = new Pane();
+            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"); // Fondo semitransparente negro
+            overlay.setPrefSize(600, 500);  // Ajustar al tamaño de la ventana
+            overlay.setVisible(true);  // In
+            Button button = new Button(mensajeEmpate);
+            button.setLayoutX(200);  
+            button.setLayoutY(250);
+            paneTablero.getChildren().add(overlay);
+            paneTablero.getChildren().add(button);
+            button.setOnAction(event->{
+                FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarFicha.fxml"));
+                Parent root=null;
+                try{
+                    root = fxmlloader.load();
+                }catch(IOException ex){
+                    System.out.println("No se ha podido cargar la venatana de seleccion de ficha");
+                }
+                
+                Scene scene = new Scene(root,600,500);   
+                Stage s = (Stage) button.getScene().getWindow();
+                s.setScene(scene);
+                s.setTitle("Tres en Raya - Seleccion de Ficha");
+                s.setResizable(false);
+                s.show();
+                Tablero.tablero=new char[9];
+                
+            });
+    }
+    
     public void mov0(ActionEvent event){
         manejarTurno(0);
         
@@ -213,9 +244,5 @@ public class TableroController implements Initializable {
         manejarTurno(8);
         
     }
-    
-}
-
-    
     
 }
