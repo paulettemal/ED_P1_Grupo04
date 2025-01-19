@@ -9,14 +9,14 @@
 
 <AnchorPane id="AnchorPane" fx:id="paneTablero" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.tresenraya.TableroController">
    <children>
-      <ImageView fitHeight="597.0" fitWidth="646.0">
+      <ImageView fitHeight="597.0" fitWidth="646.0" layoutY="-22.0">
          <image>
-            <Image url="@../../../images/Sin%20título-1.jpg" />
+            <Image url="@../../../images/plantilla.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="643.0" fitWidth="524.0" layoutX="52.0" layoutY="-46.0">
+      <ImageView fitHeight="350" fitWidth="400" layoutX="110.0" layoutY="120.0">
          <image>
-            <Image url="@../../../images/3-en-raya-tablero1-724x1024dd.jpg" />
+            <Image url="@../../../images/tabla.png" />
          </image>
       </ImageView>
       <Button fx:id="bt0" layoutX="121.0" layoutY="129.0" mnemonicParsing="false" onAction="#mov0" prefHeight="101.0" prefWidth="112.0" />
@@ -28,11 +28,10 @@
       <Button fx:id="bt2" layoutX="390.0" layoutY="129.0" mnemonicParsing="false" onAction="#mov2" prefHeight="101.0" prefWidth="112.0" />
       <Button fx:id="bt5" layoutX="390.0" layoutY="248.0" mnemonicParsing="false" onAction="#mov5" prefHeight="101.0" prefWidth="112.0" />
       <Button fx:id="bt8" layoutX="390.0" layoutY="360.0" mnemonicParsing="false" onAction="#mov8" prefHeight="101.0" prefWidth="112.0" />
-      <Label layoutX="223.0" layoutY="53.0" text="TresEnRaya" textFill="#ff1616">
-         <font>
-            <Font name="Gadugi Bold" size="34.0" />
-         </font>
-      </Label>
+      <Button fx:id="btnRecomendar" layoutX="250" layoutY="470" text="Recomendar Movimiento"/>
+      
+
+      
       <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="-79.0" layoutY="-34.0">
          <image>
             <Image url="@../../../images/X.png" />
