@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -27,12 +29,20 @@ public class ElegirTurnoController implements Initializable {
     private Button btnSi;
     @FXML
     private Button btnNo;
+    @FXML
+    private ImageView imagenFondo;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        try {
+            Image image = new Image(getClass().getResource("/images/jugarP.png").toExternalForm());
+            imagenFondo.setImage(image);
+        } catch (Exception e) {
+            System.out.println("Error al cargar la imagen: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }   
     
     
     public void iniciarJugador(ActionEvent event) throws IOException{
@@ -42,7 +52,7 @@ public class ElegirTurnoController implements Initializable {
         Scene scene = new Scene(root,600,500);   
         Stage s = (Stage) btnSi.getScene().getWindow();
         s.setScene(scene);
-        s.setTitle("Tres en Raya - Tablero");
+        s.setTitle("TIC TAC TO");
         s.setResizable(false);
         s.show();
     }
@@ -50,11 +60,14 @@ public class ElegirTurnoController implements Initializable {
         TableroController.esTurnoJugador=false;
         FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("Tablero.fxml"));
         Parent root = fxmlloader.load();
+        TableroController tableroController = fxmlloader.getController();
+        
         Scene scene = new Scene(root,600,500);   
         Stage s = (Stage) btnNo.getScene().getWindow();
         s.setScene(scene);
-        s.setTitle("Tres en Raya - Tablero");
+        s.setTitle("TIC TAC TOE");
         s.setResizable(false);
         s.show();
+        tableroController.jugarMaquina();
     }
 }
