@@ -207,6 +207,28 @@ public void senialarGanadorYTerminarPartida(){
             
     }
 
+
+public void jugarMaquina(){
+        
+        int index=Tablero.indiceMovimientoMaquina();
+        Tablero.tablero[index]=Tablero.maquina;
+        Image image1 = new Image(getClass().getResourceAsStream("/images/"+Tablero.maquina+".png"));  
+        ImageView imagenMaquina = new ImageView(image1);
+        imagenMaquina.setFitWidth(90);  
+        imagenMaquina.setFitHeight(90); 
+        arrayBotones[index].setGraphic(imagenMaquina);
+        senialarGanadorYTerminarPartida();
+        esTurnoJugador=true;
+        if(estaSinHuecos()){
+            if(!hayGanador()){
+                empatarYTerminarPartida();
+            }
+        }
+        
+    }
+
+
+
     
    
     
