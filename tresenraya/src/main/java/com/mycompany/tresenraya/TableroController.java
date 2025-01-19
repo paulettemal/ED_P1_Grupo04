@@ -135,6 +135,78 @@ public boolean hayGanador(){
         return false;
     }
 
+
+public void senialarGanadorYTerminarPartida(){
+        char fichaGanadora=' ';
+        for(int i=0;i<Tablero.combinaciones.length;i++){
+            int[] combinacion =Tablero.combinaciones[i];
+            boolean banderaJugador=true;
+            boolean banderaMaquina=true;
+            for(int e=0;e<combinacion.length;e++){
+                int indice=combinacion[e];
+                if(Tablero.tablero[indice]!=Tablero.jugador){
+                    banderaJugador=false;
+                }
+                if(Tablero.tablero[indice]!=Tablero.maquina){
+                    banderaMaquina=false;
+                } 
+            }
+            if(banderaJugador){
+                fichaGanadora=Tablero.jugador;
+                break;
+            }
+            if(banderaMaquina){
+                fichaGanadora=Tablero.maquina;
+                break;
+            }
+                
+  
+        }
+        if(fichaGanadora!=' '){
+            String mensajeGanador="";
+            if(fichaGanadora==Tablero.jugador){
+                mensajeGanador="Ha ganado usted. Click para Reiniciar.";
+            }else{
+                mensajeGanador="Ha ganado la maquina. Click para reiniciar.";
+            }
+            
+            Pane overlay = new Pane();
+            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"); // Fondo semitransparente negro
+            overlay.setPrefSize(600, 500);  // Ajustar al tamaño de la ventana
+            overlay.setVisible(true);  // In
+            Button button = new Button(mensajeGanador);
+            button.setLayoutX(200);  
+            button.setLayoutY(250);
+            paneTablero.getChildren().add(overlay);
+            paneTablero.getChildren().add(button);
+            button.setOnAction(event->{
+                FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarFicha.fxml"));
+                Parent root=null;
+                try{
+                    root = fxmlloader.load();
+                }catch(IOException ex){
+                    System.out.println("No se ha podido cargar la venatana de seleccion de ficha");
+                }
+                
+                Scene scene = new Scene(root,600,500);   
+                Stage s = (Stage) button.getScene().getWindow();
+                s.setScene(scene);
+                s.setTitle("Tres en Raya - Seleccion de Ficha");
+                s.setResizable(false);
+                s.show();
+                Tablero.tablero=new char[9];
+                
+            });
+            
+            
+        }
+        
+            
+            
+            
+            
+    }
+
     
    
     
