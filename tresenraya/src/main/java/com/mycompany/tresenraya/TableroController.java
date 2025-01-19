@@ -52,12 +52,13 @@ public class TableroController implements Initializable {
     private AnchorPane paneTablero;
     
     public static boolean esTurnoJugador;
+    
     private Button[] arrayBotones= new Button[9];
     
+    @FXML
+    private Button btnRecomendar;
     
-     
-    
-    
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,82 +72,94 @@ public class TableroController implements Initializable {
         arrayBotones[6]=bt6;
         arrayBotones[7]=bt7;
         arrayBotones[8]=bt8;
-        
-        if(!esTurnoJugador){
-            mov4(new ActionEvent());
+        btnRecomendar.setOnAction(event -> recomendarMovimiento());
+        if (Tablero.esModoJugadorVsJugador) {
+            btnRecomendar.setVisible(false);
         }
-         
+        
+
     }
     
-    public void senialarGanadorYTerminarPartida(){
-        char fichaGanadora=' ';
-        for(int i=0;i<Tablero.combinaciones.length;i++){
-            int[] combinacion =Tablero.combinaciones[i];
-            boolean banderaJugador=true;
-            boolean banderaMaquina=true;
-            for(int e=0;e<combinacion.length;e++){
-                int indice=combinacion[e];
-                if(Tablero.tablero[indice]!=Tablero.jugador){
-                    banderaJugador=false;
-                }
-                if(Tablero.tablero[indice]!=Tablero.maquina){
-                    banderaMaquina=false;
-                } 
+    public void recomendarMovimiento() {
+        if (esTurnoJugador) {
+            int indiceRecomendado = Tablero.indiceMovimientoMaquina();
+            if (indiceRecomendado != -1) {
+                arrayBotones[indiceRecomendado].setStyle("-fx-background-color: lightgreen;");
+                //System.out.println("Movimiento recomendado: " + indiceRecomendado);
+            } else {
+                //System.out.println("No hay movimientos disponibles.");
             }
-            if(banderaJugador){
-                fichaGanadora=Tablero.jugador;
-                break;
-            }
-            if(banderaMaquina){
-                fichaGanadora=Tablero.maquina;
-                break;
-            }
-                
-  
         }
-        if(fichaGanadora!=' '){
-            String mensajeGanador="";
-            if(fichaGanadora==Tablero.jugador){
-                mensajeGanador="Ha ganado usted. Click para Reiniciar.";
-            }else{
-                mensajeGanador="Ha ganado la maquina. Click para reiniciar.";
-            }
-            
-            Pane overlay = new Pane();
-            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"); // Fondo semitransparente negro
-            overlay.setPrefSize(600, 500);  // Ajustar al tamaño de la ventana
-            overlay.setVisible(true);  // In
-            Button button = new Button(mensajeGanador);
-            button.setLayoutX(200);  
-            button.setLayoutY(250);
-            paneTablero.getChildren().add(overlay);
-            paneTablero.getChildren().add(button);
-            button.setOnAction(event->{
-                FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarFicha.fxml"));
-                Parent root=null;
-                try{
-                    root = fxmlloader.load();
-                }catch(IOException ex){
-                    System.out.println("No se ha podido cargar la venatana de seleccion de ficha");
+    }
+
+    public void senialarGanadorYTerminarPartida() {
+        char fichaGanadora = ' ';
+        for (int i = 0; i < Tablero.combinaciones.length; i++) {
+            int[] combinacion = Tablero.combinaciones[i];
+            boolean banderaJugador = true;
+            boolean banderaMaquina = true;
+
+            for (int e = 0; e < combinacion.length; e++) {
+                int indice = combinacion[e];
+
+                if (Tablero.tablero[indice] != Tablero.jugador) {
+                    banderaJugador = false;
                 }
-                
-                Scene scene = new Scene(root,600,500);   
+                if (Tablero.tablero[indice] != Tablero.maquina) {
+                    banderaMaquina = false;
+                }
+            }
+
+            if (banderaJugador) {
+                fichaGanadora = Tablero.jugador;
+                break;
+            }
+            if (banderaMaquina) {
+                fichaGanadora = Tablero.maquina;
+                break;
+            }
+        }
+
+        if (fichaGanadora != ' ') {
+            String mensajeGanador = "";
+
+            if (Tablero.esModoJugadorVsJugador) {
+                if (fichaGanadora == 'X') {
+                    mensajeGanador = "¡Ganó la Ficha X! Click para reiniciar.";
+                } else if (fichaGanadora == 'O') {
+                    mensajeGanador = "¡Ganó la Ficha O! Click para reiniciar.";
+                }
+            } else {
+                if (fichaGanadora == Tablero.jugador) {
+                    mensajeGanador = "¡Has ganado! Click para reiniciar.";
+                } else {
+                    mensajeGanador = "¡Ha ganado la máquina! Click para reiniciar.";
+                }
+            }
+            Pane overlay = new Pane();
+            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+            overlay.setPrefSize(600, 500);
+            Button button = new Button(mensajeGanador);
+            button.setLayoutX(200);
+            button.setLayoutY(250);
+            paneTablero.getChildren().addAll(overlay, button);
+            button.setOnAction(event -> {
+                FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarFicha.fxml"));
+                Parent root = null;
+                try {
+                    root = fxmlloader.load();
+                } catch (IOException ex) {
+                    System.out.println("No se ha podido cargar la ventana de selección de ficha.");
+                }
+                Scene scene = new Scene(root, 600, 500);
                 Stage s = (Stage) button.getScene().getWindow();
                 s.setScene(scene);
-                s.setTitle("Tres en Raya - Seleccion de Ficha");
+                s.setTitle("Tres en Raya - Selección de Ficha");
                 s.setResizable(false);
                 s.show();
-                Tablero.tablero=new char[9];
-                
+                Tablero.tablero = new char[9];
             });
-            
-            
         }
-        
-            
-            
-            
-            
     }
     
     public boolean hayGanador(){
@@ -178,9 +191,9 @@ public class TableroController implements Initializable {
     public void empatarYTerminarPartida(){
             String mensajeEmpate="Un empate! Click para reiniciar.";
             Pane overlay = new Pane();
-            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"); // Fondo semitransparente negro
-            overlay.setPrefSize(600, 500);  // Ajustar al tamaño de la ventana
-            overlay.setVisible(true);  // In
+            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+            overlay.setPrefSize(600, 500);
+            overlay.setVisible(true);
             Button button = new Button(mensajeEmpate);
             button.setLayoutX(200);  
             button.setLayoutY(250);
@@ -207,7 +220,8 @@ public class TableroController implements Initializable {
     }
     
     public void jugarMaquina(){
-        
+        System.out.println("Estados intermedios generados por Minimax:");
+        //Tablero.mostrarMinimaxConEstados();
         int index=Tablero.indiceMovimientoMaquina();
         Tablero.tablero[index]=Tablero.maquina;
         Image image1 = new Image(getClass().getResourceAsStream("/images/"+Tablero.maquina+".png"));  
@@ -224,33 +238,46 @@ public class TableroController implements Initializable {
         }
         
     }
-    public void jugarJugador(int index){
+    public void jugarJugador(int index) {
+        if (Tablero.tablero[index] == '\u0000') {
+            Tablero.tablero[index] = esTurnoJugador ? Tablero.jugador : Tablero.maquina;
+            Image image = new Image(getClass().getResourceAsStream("/images/" + Tablero.tablero[index] + ".png"));
+            ImageView ficha = new ImageView(image);
+            ficha.setFitWidth(90);
+            ficha.setFitHeight(90);
+            arrayBotones[index].setGraphic(ficha);
+            senialarGanadorYTerminarPartida();
+
+            if (Tablero.esModoJugadorVsJugador) {
+                esTurnoJugador = !esTurnoJugador; 
+            } else {
+                esTurnoJugador = false;
+                if (!estaSinHuecos()) {
+                    jugarMaquina();
+                }
+            }
+        }
+    }
     
-        Tablero.tablero[index]=Tablero.jugador;
-        Image image2 = new Image(getClass().getResourceAsStream("/images/"+Tablero.jugador+".png"));  
-        ImageView imagenJugador = new ImageView(image2);
-        imagenJugador.setFitWidth(90);  
-        imagenJugador.setFitHeight(90); 
-        arrayBotones[index].setGraphic(imagenJugador);
-        senialarGanadorYTerminarPartida();
-        esTurnoJugador=false;
-        if(!estaSinHuecos()){
-            jugarMaquina();
-        }else{
-            if(!hayGanador()){
+    public void manejarTurno(int index) {
+        if (Tablero.esModoJugadorVsJugador) {
+            jugarJugador(index);
+
+            if (estaSinHuecos() && !hayGanador()) {
+                empatarYTerminarPartida();
+            }
+        } else {
+            if (esTurnoJugador) {
+                jugarJugador(index);
+            } else {
+                jugarMaquina();
+            }
+            if (estaSinHuecos() && !hayGanador()) {
                 empatarYTerminarPartida();
             }
         }
-        
     }
-    
-    public void manejarTurno(int index){
-        if(esTurnoJugador){
-            jugarJugador(index);
-        }else{
-            jugarMaquina();
-        }
-    }
+
     
     public boolean estaSinHuecos(){
         int contador=0;
@@ -270,7 +297,6 @@ public class TableroController implements Initializable {
     }
     
     public void mov1(ActionEvent event){
-        
        manejarTurno(1);
         
     }
@@ -304,3 +330,4 @@ public class TableroController implements Initializable {
     }
     
 }
+
