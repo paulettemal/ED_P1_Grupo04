@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.tresenraya.PantallaInicialController"
+            prefWidth="600" prefHeight="500">
+
+    <ImageView fx:id="imagenFondo" fitWidth="600" fitHeight="500" />
+    
+    
+    <Button fx:id="btnMaquinaVsHumano" layoutX="100" layoutY="430" text="Máquina vs Jugador" prefWidth="200" prefHeight="40"/>
+    <Button fx:id="btnJugadorVsJugador" layoutX="320" layoutY="430" text="Jugador vs Jugador" prefWidth="200" prefHeight="40"/>
+</AnchorPane>

@@ -14,15 +14,16 @@
          </image>
       </ImageView>
       
+      <Label text="Primer jugador" layoutX="210.0" layoutY="50.0" style="-fx-font-size: 24px; -fx-text-fill: black; -fx-font-weight: bold;" />
       <ImageView fx:id="imgEquis" fitHeight="185.0" fitWidth="184.0" layoutX="377.0" layoutY="189.0">
          <image>
-            <Image url="@../../../images/X.png" />
+            <Image url="@../../../images/O.png" />
          </image>
       </ImageView>
       
       <ImageView fx:id="imgCirculo" fitHeight="185.0" fitWidth="184.0" layoutX="70.0" layoutY="189.0">
          <image>
-            <Image url="@../../../images/O.png" />
+            <Image url="@../../../images/X.png" />
          </image>
       </ImageView>
    </children>

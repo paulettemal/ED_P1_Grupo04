@@ -33,6 +33,7 @@ public class ElegirTurnoController implements Initializable {
     private ImageView imagenFondo;
     
     
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -52,22 +53,25 @@ public class ElegirTurnoController implements Initializable {
         Scene scene = new Scene(root,600,500);   
         Stage s = (Stage) btnSi.getScene().getWindow();
         s.setScene(scene);
-        s.setTitle("TIC TAC TO");
+        s.setTitle("Tres en Raya - Tablero");
         s.setResizable(false);
         s.show();
     }
-    public void iniciarMaquina(ActionEvent event) throws IOException{
-        TableroController.esTurnoJugador=false;
+    public void iniciarMaquina(ActionEvent event) throws IOException {
+        TableroController.esTurnoJugador = false;
         FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("Tablero.fxml"));
         Parent root = fxmlloader.load();
+
         TableroController tableroController = fxmlloader.getController();
-        
-        Scene scene = new Scene(root,600,500);   
+
+        Scene scene = new Scene(root, 600, 500);
         Stage s = (Stage) btnNo.getScene().getWindow();
         s.setScene(scene);
-        s.setTitle("TIC TAC TOE");
+        s.setTitle("Tres en Raya - Tablero");
         s.setResizable(false);
         s.show();
+
         tableroController.jugarMaquina();
     }
+
 }

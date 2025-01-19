@@ -1,8 +1,9 @@
-com\mycompany\tresenraya\ElegirFichaController.class
-com\mycompany\tresenraya\TableroController.class
-com\mycompany\tresenraya\Tree.class
 com\mycompany\tresenraya\NodeTree.class
 module-info.class
 com\mycompany\tresenraya\ElegirTurnoController.class
+com\mycompany\tresenraya\ElegirFichaController.class
+com\mycompany\tresenraya\TableroController.class
+com\mycompany\tresenraya\Tree.class
+com\mycompany\tresenraya\PantallaInicialController.class
 com\mycompany\tresenraya\Tablero.class
 com\mycompany\tresenraya\App.class
