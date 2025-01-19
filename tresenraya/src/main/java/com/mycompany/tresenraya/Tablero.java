@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 /**
  *
  * @author zaval
@@ -34,6 +35,7 @@ public class Tablero {
     public static char jugador;
     public static char maquina;
     public static char[] tablero= new char[9];
+    
     public static char jugador1;
     public static char jugador2; 
     
@@ -186,8 +188,6 @@ public class Tablero {
         
         return -1;   
     }
-    
-    
 }
     
 
