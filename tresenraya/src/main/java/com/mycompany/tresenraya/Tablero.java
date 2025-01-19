@@ -68,28 +68,8 @@ public class Tablero {
         
         return arbol;
     }
-
-
-public static int analizarSiHayGanador(char[] tablero,char ficha){
-        for(int i=0;i<combinaciones.length;i++){
-            int[] combinacion =combinaciones[i];
-            boolean bandera=true;
-            for(int e=0;e<combinacion.length;e++){
-                int indice=combinacion[e];
-                if(tablero[indice]!=ficha){
-                    bandera=false;
-                }     
-            }
-            if(bandera==true){
-                return 1;
-            }      
-  
-        }
-        
-        return 0;
-    }
-
-public static char[] minimax(){
+    
+    public static char[] minimax(){
         Tree<char[]> arbol=crearArbol();
         LinkedList<Tree<char[]>> listaNivel2= arbol.getRoot().getHijos();
         LinkedList<Integer> minimos=new LinkedList();
@@ -153,9 +133,29 @@ public static char[] minimax(){
         char[] tableroGanador  = listaNivel2.get(indiceMaxUtilidad).getRoot().getContent();
         return tableroGanador;
     }
-
-
-public static int indiceMovimientoMaquina(){
+    
+    
+    public static int analizarSiHayGanador(char[] tablero,char ficha){
+        for(int i=0;i<combinaciones.length;i++){
+            int[] combinacion =combinaciones[i];
+            boolean bandera=true;
+            for(int e=0;e<combinacion.length;e++){
+                int indice=combinacion[e];
+                if(tablero[indice]!=ficha){
+                    bandera=false;
+                }     
+            }
+            if(bandera==true){
+                return 1;
+            }      
+  
+        }
+        
+        return 0;
+    }
+    
+    
+    public static int indiceMovimientoMaquina(){
         char[] tableroGanador= minimax();
         for(int i=0;i<tablero.length;i++){
             if(tablero[i]!=tableroGanador[i]){
@@ -165,11 +165,7 @@ public static int indiceMovimientoMaquina(){
         
         return -1;   
     }
-	
-
-
     
-     
     
 }
     
