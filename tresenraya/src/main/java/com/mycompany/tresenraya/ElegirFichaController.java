@@ -32,109 +32,72 @@ public class ElegirFichaController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ScaleTransition scaleIn = new ScaleTransition(Duration.millis(200), imgCirculo);
-        scaleIn.setToX(1.1);
-        scaleIn.setToY(1.1);
-
-        TranslateTransition translateIn = new TranslateTransition(Duration.millis(200), imgCirculo);
-        translateIn.setToX(-5);
-        translateIn.setToY(-5);
-
-        ScaleTransition scaleOut = new ScaleTransition(Duration.millis(500), imgCirculo);
-        scaleOut.setToX(1.0);
-        scaleOut.setToY(1.0);
-
-        TranslateTransition translateOut = new TranslateTransition(Duration.millis(500), imgCirculo);
-        translateOut.setToX(0);
-        translateOut.setToY(0);
-
-        ScaleTransition scaleIn2 = new ScaleTransition(Duration.millis(300), imgEquis);
-        scaleIn2.setToX(1.1);
-        scaleIn2.setToY(1.1);
-
-        TranslateTransition translateIn2 = new TranslateTransition(Duration.millis(300), imgEquis);
-        translateIn2.setToX(-5);
-        translateIn2.setToY(-5);
-
-        ScaleTransition scaleOut2 = new ScaleTransition(Duration.millis(500), imgEquis);
-        scaleOut2.setToX(1.0);
-        scaleOut2.setToY(1.0);
-
-        TranslateTransition translateOut2 = new TranslateTransition(Duration.millis(500), imgEquis);
-        translateOut2.setToX(0);
-        translateOut2.setToY(0);
-
         imgCirculo.setOnMouseEntered(event -> {
-            scaleIn.play();
-            translateIn.play();
+            new ScaleTransition(Duration.millis(200), imgCirculo).setToX(1.1);
         });
-
         imgCirculo.setOnMouseExited(event -> {
-            scaleOut.play();
-            translateOut.play();
+            new ScaleTransition(Duration.millis(200), imgCirculo).setToX(1.0);
         });
-
+        
         imgEquis.setOnMouseEntered(event -> {
-            scaleIn2.play();
-            translateIn2.play();
+            new ScaleTransition(Duration.millis(200), imgEquis).setToX(1.1);
         });
-
         imgEquis.setOnMouseExited(event -> {
-            scaleOut2.play();
-            translateOut2.play();
-        });
-        
-        imgCirculo.setOnMouseClicked(event ->{
-            Tablero.jugador='O';
-            Tablero.maquina='X';
-            FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarTurno.fxml"));
-            Parent root=null;
-            try{
-                root= fxmlloader.load();
-            }catch(IOException ex){
-                System.out.println("No se ha podido cargar la ventana 2 de seleccion de turno. ");
-                
-            }
-            
-            Scene scene = new Scene(root,600,500);   
-            Stage s = (Stage) imgCirculo.getScene().getWindow();
-            s.setScene(scene);
-            s.setTitle("Tres En Raya - Seleccion de turno");
-            s.setResizable(false);
-            s.show();
-        });
-        
-        imgEquis.setOnMouseClicked(event ->{
-            Tablero.jugador='X';
-            Tablero.maquina='O';
-            FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarTurno.fxml"));
-            Parent root=null;
-            try{
-                root= fxmlloader.load();
-            }catch(IOException ex){
-                System.out.println("No se ha podido cargar la ventana 2 de seleccion de turno. ");
-                
-            }
-            
-            Scene scene = new Scene(root,600,500);   
-            Stage s = (Stage) imgEquis.getScene().getWindow();
-            s.setScene(scene);
-            s.setTitle("Tres En Raya - Seleccion de turno");
-            s.setResizable(false);
-            s.show();
+            new ScaleTransition(Duration.millis(200), imgEquis).setToX(1.0);
         });
 
+        imgCirculo.setOnMouseClicked(event -> {
+            Tablero.jugador = 'O'; 
+            Tablero.maquina = 'X';
+            if (Tablero.esModoJugadorVsJugador) {
+                cargarTablero();
+            } else if (Tablero.esModoMaquinaVsJugador) {
+                cargarSeleccionTurno();
+            }
+        });
         
-        
-        
-   
-        
-        
-        
-        
-        
-        
-
-    }    
+        imgEquis.setOnMouseClicked(event -> {
+            Tablero.jugador = 'X';
+            Tablero.maquina = 'O';
+            if (Tablero.esModoJugadorVsJugador) {
+                cargarTablero();  
+            } else if (Tablero.esModoMaquinaVsJugador) {
+                cargarSeleccionTurno(); 
+            }
+        });
+    }
     
+    private void cargarSeleccionTurno() {
+        FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarTurno.fxml"));
+        Parent root = null;
+        try {
+            root = fxmlloader.load();
+        } catch (IOException ex) {
+            System.out.println("No se ha podido cargar la ventana de selección de turno.");
+        }
+
+        Scene scene = new Scene(root, 600, 500);
+        Stage s = (Stage) imgCirculo.getScene().getWindow();
+        s.setScene(scene);
+        s.setTitle("Tres En Raya - Selección de turno");
+        s.setResizable(false);
+        s.show();
+    }
+
+    private void cargarTablero() {
+        FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("Tablero.fxml"));
+        Parent root = null;
+        try {
+            root = fxmlloader.load();
+        } catch (IOException ex) {
+            System.out.println("No se ha podido cargar el tablero.");
+        }
+
+        Scene scene = new Scene(root, 600, 500);
+        Stage s = (Stage) imgCirculo.getScene().getWindow();
+        s.setScene(scene);
+        s.setTitle("Tres En Raya - Tablero");
+        s.setResizable(false);
+        s.show();
+    }
 }
