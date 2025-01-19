@@ -10,27 +10,20 @@
    <children>
       <ImageView fitHeight="500.0" fitWidth="600.0">
          <image>
-            <Image url="@../../../images/Sin%20título-1.jpg" />
+            <Image url="@../../../images/elige.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="442.0" fitWidth="243.0" layoutX="179.0" layoutY="22.0">
+      
+      <Label text="Primer jugador" layoutX="210.0" layoutY="50.0" style="-fx-font-size: 24px; -fx-text-fill: black; -fx-font-weight: bold;" />
+      <ImageView fx:id="imgEquis" fitHeight="185.0" fitWidth="184.0" layoutX="377.0" layoutY="189.0">
          <image>
-            <Image url="@../../../images/electricidad.png" />
+            <Image url="@../../../images/O.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgEquis" fitHeight="185.0" fitWidth="184.0" layoutX="377.0" layoutY="154.0">
+      
+      <ImageView fx:id="imgCirculo" fitHeight="185.0" fitWidth="184.0" layoutX="70.0" layoutY="189.0">
          <image>
             <Image url="@../../../images/X.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="232.0" layoutY="464.0" prefHeight="18.0" prefWidth="136.0" text="¡ELIGE TU FICHA!" textFill="#b07013">
-         <font>
-            <Font name="MS Gothic" size="16.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="imgCirculo" fitHeight="210.0" fitWidth="201.0" layoutX="23.0" layoutY="139.0">
-         <image>
-            <Image url="@../../../images/circulo_fondo_blanco.png" />
          </image>
       </ImageView>
    </children>
