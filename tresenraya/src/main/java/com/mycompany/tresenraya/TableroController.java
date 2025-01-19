@@ -228,15 +228,36 @@ public void jugarMaquina(){
     }
 
 
+public void jugarJugador(int index){
+    
+        Tablero.tablero[index]=Tablero.jugador;
+        Image image2 = new Image(getClass().getResourceAsStream("/images/"+Tablero.jugador+".png"));  
+        ImageView imagenJugador = new ImageView(image2);
+        imagenJugador.setFitWidth(90);  
+        imagenJugador.setFitHeight(90); 
+        arrayBotones[index].setGraphic(imagenJugador);
+        senialarGanadorYTerminarPartida();
+        esTurnoJugador=false;
+        if(!estaSinHuecos()){
+            jugarMaquina();
+        }else{
+            if(!hayGanador()){
+                empatarYTerminarPartida();
+            }
+        }
+        
+    }
+
+
 
     
    
     
     public void manejarTurno(int index){
         if(esTurnoJugador){
-            //jugarJugador(index);
+            jugarJugador(index);
         }else{
-            //jugarMaquina();
+            jugarMaquina();
         }
     }
     
