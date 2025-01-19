@@ -20,12 +20,13 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmLoader=new FXMLLoader(App.class.getResource("SeleccionarFicha.fxml"));
+        FXMLLoader fxmLoader=new FXMLLoader(App.class.getResource("PantallaInicial.fxml"));
         
         Parent root=fxmLoader.load();
         scene=new Scene(root,600,500);
         stage.setScene(scene);
-        stage.setTitle("Tres En Raya - Seleccion de ficha");
+        stage.setTitle("TIC TAC TOE");
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/images/icon.png")));
         stage.setResizable(false);
         stage.show();
         
