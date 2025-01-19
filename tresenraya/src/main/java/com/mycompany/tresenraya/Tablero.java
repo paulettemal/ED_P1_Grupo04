@@ -153,6 +153,18 @@ public static char[] minimax(){
         char[] tableroGanador  = listaNivel2.get(indiceMaxUtilidad).getRoot().getContent();
         return tableroGanador;
     }
+
+
+public static int indiceMovimientoMaquina(){
+        char[] tableroGanador= minimax();
+        for(int i=0;i<tablero.length;i++){
+            if(tablero[i]!=tableroGanador[i]){
+                return i;
+            }
+        }
+        
+        return -1;   
+    }
 	
 
 
