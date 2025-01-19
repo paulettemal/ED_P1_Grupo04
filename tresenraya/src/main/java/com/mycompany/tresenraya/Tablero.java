@@ -88,6 +88,71 @@ public static int analizarSiHayGanador(char[] tablero,char ficha){
         
         return 0;
     }
+
+public static char[] minimax(){
+        Tree<char[]> arbol=crearArbol();
+        LinkedList<Tree<char[]>> listaNivel2= arbol.getRoot().getHijos();
+        LinkedList<Integer> minimos=new LinkedList();
+        for(int i=0;i<listaNivel2.size();i++){
+            Tree<char[]> nodoNivel2=listaNivel2.get(i);
+            if(analizarSiHayGanador(nodoNivel2.getRoot().getContent(),maquina)==1){
+                    return nodoNivel2.getRoot().getContent();
+            }
+            LinkedList<Tree<char[]>> listaNivel3= nodoNivel2.getRoot().getHijos();
+            if(listaNivel3.isEmpty()){
+                return nodoNivel2.getRoot().getContent();
+            }
+            LinkedList<Integer> lista_utilidades=new LinkedList<>();
+            boolean ban=true;
+            for(int e=0;e<listaNivel3.size();e++){
+                Tree<char[]> nodoNivel3=listaNivel3.get(e);
+                char[] contentNodo= nodoNivel3.getRoot().getContent();
+                System.out.println(Arrays.toString(contentNodo));
+                //System.out.println(analizarGanador(contentNodo,false));
+                if(analizarSiHayGanador(contentNodo,jugador)==1){
+                    ban=false;
+                    minimos.add(Integer.MIN_VALUE);
+                    System.out.println(Integer.MIN_VALUE);
+                    break;
+                }
+                int Pmaquina=0;
+                int Pjugador=0;
+                int utilidad; 
+                for(int a=0;a<combinaciones.length;a++){
+                    int[] combinacion=combinaciones[a];
+                    boolean maquinaDisponibilidad=true;
+                    boolean jugadorDisponibilidad=true;
+                    for(int o=0;o<combinacion.length;o++){
+                        int indice=combinacion[o];
+                        if (contentNodo[indice] == jugador) {
+                            maquinaDisponibilidad = false;
+                        }if (contentNodo[indice] == maquina) {
+                            jugadorDisponibilidad =false;
+                        }
+                         
+                    }
+                    if(maquinaDisponibilidad) Pmaquina++;
+                    if(jugadorDisponibilidad) Pjugador++;
+                }
+                
+                utilidad=Pmaquina;
+                lista_utilidades.add(utilidad);
+               
+            }
+            if(ban){
+                minimos.add(Collections.min(lista_utilidades));
+            }
+            
+            
+            
+        }
+        
+        System.out.println(minimos);
+ 
+        int indiceMaxUtilidad= minimos.lastIndexOf(Collections.max(minimos));
+        char[] tableroGanador  = listaNivel2.get(indiceMaxUtilidad).getRoot().getContent();
+        return tableroGanador;
+    }
 	
 
 
