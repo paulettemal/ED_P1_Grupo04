@@ -77,66 +77,8 @@ public class TableroController implements Initializable {
         }
          
     }
-
-
-public void empatarYTerminarPartida(){
-            String mensajeEmpate="Un empate! Click para reiniciar.";
-            Pane overlay = new Pane();
-            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"); // Fondo semitransparente negro
-            overlay.setPrefSize(600, 500);  // Ajustar al tamaño de la ventana
-            overlay.setVisible(true);  // In
-            Button button = new Button(mensajeEmpate);
-            button.setLayoutX(200);  
-            button.setLayoutY(250);
-            paneTablero.getChildren().add(overlay);
-            paneTablero.getChildren().add(button);
-            button.setOnAction(event->{
-                FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarFicha.fxml"));
-                Parent root=null;
-                try{
-                    root = fxmlloader.load();
-                }catch(IOException ex){
-                    System.out.println("No se ha podido cargar la venatana de seleccion de ficha");
-                }
-                
-                Scene scene = new Scene(root,600,500);   
-                Stage s = (Stage) button.getScene().getWindow();
-                s.setScene(scene);
-                s.setTitle("Tres en Raya - Seleccion de Ficha");
-                s.setResizable(false);
-                s.show();
-                Tablero.tablero=new char[9];
-                
-            });
-    }
-
-public boolean hayGanador(){
-        for(int i=0;i<Tablero.combinaciones.length;i++){
-            int[] combinacion =Tablero.combinaciones[i];
-            boolean banderaJugador=true;
-            boolean banderaMaquina=true;
-            for(int e=0;e<combinacion.length;e++){
-                int indice=combinacion[e];
-                if(Tablero.tablero[indice]!=Tablero.jugador){
-                    banderaJugador=false;
-                }
-                if(Tablero.tablero[indice]!=Tablero.maquina){
-                    banderaMaquina=false;
-                } 
-            }
-            if(banderaJugador){
-                return banderaJugador;
-            }
-            if(banderaMaquina){
-                return banderaMaquina;
-            }
-               
-        }
-        return false;
-    }
-
-
-public void senialarGanadorYTerminarPartida(){
+    
+    public void senialarGanadorYTerminarPartida(){
         char fichaGanadora=' ';
         for(int i=0;i<Tablero.combinaciones.length;i++){
             int[] combinacion =Tablero.combinaciones[i];
@@ -206,9 +148,65 @@ public void senialarGanadorYTerminarPartida(){
             
             
     }
-
-
-public void jugarMaquina(){
+    
+    public boolean hayGanador(){
+        for(int i=0;i<Tablero.combinaciones.length;i++){
+            int[] combinacion =Tablero.combinaciones[i];
+            boolean banderaJugador=true;
+            boolean banderaMaquina=true;
+            for(int e=0;e<combinacion.length;e++){
+                int indice=combinacion[e];
+                if(Tablero.tablero[indice]!=Tablero.jugador){
+                    banderaJugador=false;
+                }
+                if(Tablero.tablero[indice]!=Tablero.maquina){
+                    banderaMaquina=false;
+                } 
+            }
+            if(banderaJugador){
+                return banderaJugador;
+            }
+            if(banderaMaquina){
+                return banderaMaquina;
+            }
+               
+        }
+        return false;
+    }
+    
+    
+    public void empatarYTerminarPartida(){
+            String mensajeEmpate="Un empate! Click para reiniciar.";
+            Pane overlay = new Pane();
+            overlay.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);"); // Fondo semitransparente negro
+            overlay.setPrefSize(600, 500);  // Ajustar al tamaño de la ventana
+            overlay.setVisible(true);  // In
+            Button button = new Button(mensajeEmpate);
+            button.setLayoutX(200);  
+            button.setLayoutY(250);
+            paneTablero.getChildren().add(overlay);
+            paneTablero.getChildren().add(button);
+            button.setOnAction(event->{
+                FXMLLoader fxmlloader = new FXMLLoader(App.class.getResource("SeleccionarFicha.fxml"));
+                Parent root=null;
+                try{
+                    root = fxmlloader.load();
+                }catch(IOException ex){
+                    System.out.println("No se ha podido cargar la venatana de seleccion de ficha");
+                }
+                
+                Scene scene = new Scene(root,600,500);   
+                Stage s = (Stage) button.getScene().getWindow();
+                s.setScene(scene);
+                s.setTitle("Tres en Raya - Seleccion de Ficha");
+                s.setResizable(false);
+                s.show();
+                Tablero.tablero=new char[9];
+                
+            });
+    }
+    
+    public void jugarMaquina(){
         
         int index=Tablero.indiceMovimientoMaquina();
         Tablero.tablero[index]=Tablero.maquina;
@@ -226,10 +224,8 @@ public void jugarMaquina(){
         }
         
     }
-
-
-public void jugarJugador(int index){
-    
+    public void jugarJugador(int index){
+    	//Hola
         Tablero.tablero[index]=Tablero.jugador;
         Image image2 = new Image(getClass().getResourceAsStream("/images/"+Tablero.jugador+".png"));  
         ImageView imagenJugador = new ImageView(image2);
@@ -247,11 +243,6 @@ public void jugarJugador(int index){
         }
         
     }
-
-
-
-    
-   
     
     public void manejarTurno(int index){
         if(esTurnoJugador){
