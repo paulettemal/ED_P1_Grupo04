@@ -18,18 +18,13 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-/**
- * FXML Controller class
- *
- * @author zaval
- */
 public class ElegirFichaController implements Initializable {
+
     @FXML
     private ImageView imgCirculo;
     @FXML
     private ImageView imgEquis;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         imgCirculo.setOnMouseEntered(event -> {
