@@ -13,7 +13,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
-
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 /**
  *
  * @author zaval
@@ -23,6 +34,11 @@ public class Tablero {
     public static char jugador;
     public static char maquina;
     public static char[] tablero= new char[9];
+    public static char jugador1;
+    public static char jugador2; 
+    
+    public static boolean esModoJugadorVsJugador = false;
+    public static boolean esModoMaquinaVsJugador = false;
     
     public static int[][] combinaciones = {
         {0, 1, 2}, // Fila 1
@@ -87,12 +103,12 @@ public class Tablero {
             for(int e=0;e<listaNivel3.size();e++){
                 Tree<char[]> nodoNivel3=listaNivel3.get(e);
                 char[] contentNodo= nodoNivel3.getRoot().getContent();
-                System.out.println(Arrays.toString(contentNodo));
+                //System.out.println(Arrays.toString(contentNodo));
                 //System.out.println(analizarGanador(contentNodo,false));
                 if(analizarSiHayGanador(contentNodo,jugador)==1){
                     ban=false;
                     minimos.add(Integer.MIN_VALUE);
-                    System.out.println(Integer.MIN_VALUE);
+                    //System.out.println(Integer.MIN_VALUE);
                     break;
                 }
                 int Pmaquina=0;
@@ -127,10 +143,15 @@ public class Tablero {
             
         }
         
-        System.out.println(minimos);
- 
-        int indiceMaxUtilidad= minimos.lastIndexOf(Collections.max(minimos));
-        char[] tableroGanador  = listaNivel2.get(indiceMaxUtilidad).getRoot().getContent();
+        Integer max= Collections.max(minimos);
+        LinkedList<Integer> indices= new LinkedList();
+        for (int i = 0; i < minimos.size(); i++) {
+            if (minimos.get(i) == max) {
+                indices.add(i);
+            }
+        }
+        int indiceIntermedio = indices.get(indices.size() / 2);
+        char[] tableroGanador  = listaNivel2.get(indiceIntermedio).getRoot().getContent();
         return tableroGanador;
     }
     
