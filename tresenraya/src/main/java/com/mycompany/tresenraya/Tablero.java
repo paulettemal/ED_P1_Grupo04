@@ -133,7 +133,7 @@ public class Tablero {
                     if(jugadorDisponibilidad) Pjugador++;
                 }
                 
-                utilidad=Pmaquina;
+                utilidad=Pmaquina-Pjugador;
                 lista_utilidades.add(utilidad);
                
             }
