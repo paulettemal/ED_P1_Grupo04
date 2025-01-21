@@ -253,7 +253,10 @@ public class TableroController implements Initializable {
             } else {
                 esTurnoJugador = false;
                 if (!estaSinHuecos()) {
-                    jugarMaquina();
+                    if(!hayGanador()){
+                       jugarMaquina(); 
+                    }
+                    
                 }
             }
         }
